@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    
+    <head>
+        <title>
+            Form
+        </title>
+        <script type="text/javascript" src="../vcXMLRPC.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/css/fluig-style-guide.min.css">
+        <link rel="stylesheet" type="text/css" href="CSS_Fluig.css">
+        <script src="http://ecp.fluigcloud.com.br:80/portal/resources/js/jquery/jquery.js"></script>
+        <script src="http://ecp.fluigcloud.com.br:80/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script src="http://ecp.fluigcloud.com.br:80/portal/resources/js/mustache/mustache-min.js"></script>
+        <script src="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/js/fluig-style-guide.min.js"></script>
+        <!-- CUSTOM -->
+        <link href="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/css/fluig-style-guide-filter.min.css" rel="stylesheet" type="text/css">
+        <link href="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/css/fluig-style-guide-ratingstars.min.css" rel="stylesheet" type="text/css">
+        <script src="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/js/fluig-style-guide-filter.min.js"></script>
+        <script src="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/js/fluig-style-guide-ratingstars.min.js"></script>
+        <link href='http://ecp.fluigcloud.com.br:80/webdesk/customresources?cid=1&resourceName=temaFormulario/5.css' type='text/css' rel='stylesheet'/>
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .ocultar_label{ display: none !important; }
+            table.scroll {
+                position: absolute;
+                top:200px;
+                left:0;
+                min-width: 800px; /* Optional */
+                height: 40%;
+                /* border-collapse: collapse; */
+                border-spacing: 0;
+            }
+
+            table.scroll tbody,
+            table.scroll thead { display: block; }
+
+            thead tr th { 
+                height: 30px;
+                line-height: 30px;
+                /*text-align: left;*/
+            }
+
+            table.scroll tbody {
+                height: 400px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            tbody {}
+
+            tbody td, thead th {
+                width: auto; /* Optional */
+                border-right: 1px solid black;
+            }
+
+            tbody td:last-child, thead th:last-child {
+                border-right: none;
+            }
+
+            @media screen and (width: 1366px), screen and (height: 768px) {
+                table.scroll tbody {
+                    height: 400px;
+                }
+            }
+
+            @media screen and (width: 1280px), screen and (height: 1024px) {
+                table.scroll tbody {
+                    height: 650px;
+                }
+            }
+            @media screen and (width: 1920px), screen and (height: 1080px) {
+                table.scroll tbody {
+                    height: 700px;
+                }
+            }
+
+            .loader {
+                border: 5px solid #f3f3f3;
+              -webkit-animation: spin 1s linear infinite;
+              animation: spin 1s linear infinite;
+              border-top: 5px solid #555;
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;
+            }
+
+            @-webkit-keyframes spin {
+              0% { -webkit-transform: rotate(0deg); }
+              100% { -webkit-transform: rotate(360deg); }
+            }
+
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+
+        </style>
+    </head>
+    
+    <body class="fluig-style-guide"  >
+        <div class="container-fluid">
+            <form class="totvs-form grid vertical create-form-components ui-sortable t5" name="createFormComponents" style="">
+            <br />
+
+                <input type="hidden" name="controleCarregando" id="controleCarregando">
+
+                <div style="width: 100% !important; min-height: 55px !important; background-color: #FFF; z-index: 3;"><img src="http://ecp.fluigcloud.com.br:80/portal/resources/images/1/logo_image.png"
+                alt="Logo" id="logo" style="max-height: 50px; max-width: 250px; background-color: #FFF;">
+                </div>
+                <br>
+
+                <div id="loader" style="background-color: rgba(0,0,0,0.5); min-height: 100%; min-width: 100%; position: absolute; top: 0; left: 0; display: block">
+
+                <strong id="porcentagem" style="position: absolute;  left: 48%; top: 59%; color: white"></strong>
+                     <div class="loader"  align="center" style="position: absolute; left: 50%; top: 50%; " ></div>
+                </div>
+               
+                
+                <div class="row">
+                       <div class="col-md-4">
+                            <b>Quantidade de cargos encontrados:</b><i id="qtdCargos"></i>
+                        </div> 
+                        <div class="col-md-4">
+                            <b>Quantidade de documentos:</b><i id="qtdDocumentos"></i>
+                        </div> 
+                </div>    
+
+               <br>
+                <div><span style="background-color: #ffff80">Cargos em aberto</span> <b> | </b> <span style="background-color: #ff9999">Cargos inativos</span></div>
+
+
+
+                <br />
+                 <span id="msgAguarde"></span>
+                <br />
+                <br />
+               
+                <span id="tabelaCorpo"></span>
+
+        </form>
+        </div>
+
+        <script type="text/javascript">
+            // Change the selector if needed
+            var $table = $('table.scroll'),
+                $bodyCells = $table.find('tbody tr:first').children(),
+                colWidth;
+
+            // Adjust the width of thead cells when window resizes
+            $(window).resize(function() {
+                // Get the tbody columns width array
+                colWidth = $bodyCells.map(function() {
+                    return $(this).width();
+                }).get();
+                
+                // Set the width of thead columns
+                $table.find('thead tr').children().each(function(i, v) {
+                    $(v).width(colWidth[i]);
+                });    
+            }).resize(); // Trigger resize handler
+
+
+
+            $('body').on('click', 'table tr td.classControl, table tr td.cargo, table tr td.lotacao', function()   {
+                $("[data-on='off'].classControl").css("background-color", "#d6d6c2");
+                var dtColor = $(this).attr('data-color');
+               	$("td[data-color='"+dtColor+"']:not([data-on='on']").css('background-color', '#ffffb3');
+                var i = $( $(this).closest('tr') ).index('table tbody tr');
+               $('span#tabelaCorpo table tbody tr').eq(i).find("td[data-color]:not([data-on='on'])").css('background-color', '#ffffb3');
+            });
+
+
+        
+
+    var crescente = true;
+    function sortTable(indexColuna) {
+        
+        document.getElementById("msgAguarde").innerHTML = "Aguarde...";
+  
+       setTimeout(function(){ 
+
+            var table, rows, switching, i, x, y, shouldSwitch;
+              table = document.getElementById("tabelaMatriz");
+              switching = true;
+              /*Make a loop that will continue until
+              no switching has been done:*/
+              while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1); i++) {
+                  //start by saying there should be no switching:
+                  shouldSwitch = false;
+                  /*Get the two elements you want to compare,
+                  one from current row and one from the next:*/
+                  x = rows[i].getElementsByTagName("TD")[indexColuna];
+                  y = rows[i + 1].getElementsByTagName("TD")[indexColuna];
+                  //check if the two rows should switch place:
+                  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase() && crescente) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch= true;
+                    break;
+                  } else if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase() && !crescente){
+                    shouldSwitch= true;
+                    break;
+                  }
+                }
+                if (shouldSwitch) {
+                  /*If a switch has been marked, make the switch
+                  and mark that a switch has been done:*/
+                  rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                  switching = true;
+                }
+              }
+              
+              crescente = crescente ? false : true;
+             document.getElementById("msgAguarde").innerHTML = "";
+            
+        }, 3000);
+     
+    }
+        </script>
+
+        
+    </body>
+
+</html>

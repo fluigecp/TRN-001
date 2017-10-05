@@ -1,0 +1,254 @@
+<html>
+<head>
+    <script src="http://ecp.fluigcloud.com.br:80/portal/resources/js/jquery/jquery.js"></script>
+    <script src="http://ecp.fluigcloud.com.br:80/portal/resources/js/jquery/jquery-ui.min.js"></script>
+    <script src="http://ecp.fluigcloud.com.br:80/portal/resources/js/mustache/mustache-min.js"></script>
+    <script src="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/js/fluig-style-guide.min.js"></script>
+    <script src="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/js/fluig-style-guide-filter.min.js"></script>
+    <script src="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/js/fluig-style-guide-ratingstars.min.js"></script>
+    <script src="../vcXMLRPC.js" type="text/javascript"></script>
+
+    <link href='http://ecp.fluigcloud.com.br:80/webdesk/customresources?cid=1&resourceName=temaFormulario/5.css' type='text/css' rel='stylesheet' />
+    <link href="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/css/fluig-style-guide-filter.min.css" rel="stylesheet" type="text/css">
+    <link href="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/css/fluig-style-guide-ratingstars.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="http://ecp.fluigcloud.com.br:80/portal/resources/style-guide/css/fluig-style-guide.min.css">
+	<script type="text/javascript" src="matriz.js"></script>
+<!-- 	<script type="text/javascript" src="cargoAutoComplete.js"></script> -->
+	<script type="text/javascript" src="cargoZoom.js"></script>
+	<link rel="stylesheet" type="text/css" href="CSS_Fluig.css" />
+
+  <style>
+    .loader {
+                border: 5px solid #f3f3f3;
+              -webkit-animation: spin 1s linear infinite;
+              animation: spin 1s linear infinite;
+              border-top: 5px solid #555;
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;
+              z-index: 100 !important;
+            }
+
+            @-webkit-keyframes spin {
+              0% { -webkit-transform: rotate(0deg); }
+              100% { -webkit-transform: rotate(360deg); }
+            }
+
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+       
+  </style>
+</head>
+<body>
+<div class="fluig-style-guide">
+<form name="form" role="form">
+
+	<h1>Gerar matriz</h1>
+	
+	<input type="hidden" name="codLotacao" id="codLotacao">
+  <input type="hidden" name="codDepartamento" id="codDepartamento">
+  	<input type="hidden" name="campoDescritor" id="campoDescritor" value="Matriz">
+	
+       <div class="row">
+          <div class="col-md-3">
+                <div class="form-field" data-type="radio" data-show-properties="" data-field-name="filtrarPor">
+              <div class="form-input">
+                <div class="form-group">
+                  <label>Filtrar por:</label>
+                  <div class="radio-options">
+                    <div class="radio">
+                      <label><input name="filtrarPor" type="radio" onclick="exibeFiltro(this.value);" value="Departamento">Departamento</label>
+                      &nbsp;
+                      <label><input name="filtrarPor" type="radio" onclick="exibeFiltro(this.value);" value="Lotação">Lotação</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+             <div class="form-field" data-type="combo" data-show-properties="" data-field-name="situacaoCargo" >
+                <div class="form-input">
+                  <div class="form-group">
+                      <label>Situação de cargo</label>
+                        <select name="situacaoCargo" id="situacaoCargo" class="form-control" >
+                          <option value="">Todos</option>
+                          <option value="Ativo" selected>Ativo</option>
+                          <option value="Inativo">Inativo</option>
+                        </select>
+                    
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+             <div class="form-field" data-type="combo" data-show-properties="" data-field-name="descricaoCargo" >
+                <div class="form-input">
+                  <div class="form-group">
+                      <label>Descrição de cargo</label>
+                        <select name="descricaoCargo" id="descricaoCargo" class="form-control" >
+                          <option value="">Todos</option>
+                          <option value="Sim">Sim</option>
+                          <option value="Já solicitado">Já solicitado</option>
+                        </select>
+                    
+                    </div>
+                </div>
+            </div>
+          </div>
+       </div>
+
+
+       	<div class="row">
+          <div class="col-md-5" id="divDepartamento" style="display: none">
+            <div class="form-field" data-type="zoom" data-show-properties="" data-field-name="departamento"  >
+              <div class="form-input">
+                <div class="form-group">
+                    <label>Departamento</label>
+                        <input type="zoom" class="form-control " id="departamento" name="departamento"
+                                  data-zoom="{
+                                      'displayKey':'departamento',
+                                      'datasetId':'dsDepartamento',
+                                      'fields':[
+                                          {'field':'codDepartamento', 'label':'ID'},
+                                          {'field':'departamento', 'label':'Departamento', 'standard':'true'}
+                                          ]
+                                      }" 
+                              />
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-5" id="divLotacao" style="display: none">
+              <div class="form-field" data-type="zoom" data-show-properties="" data-field-name="lotacao" id="divLotacao" >
+                    <div class="form-input">
+                        <div class="form-group">
+                            <label>Lotação</label>
+                            <input type="zoom" class="form-control " id="lotacao" name="lotacao"
+                                data-zoom="{
+                                    'displayKey':'lotacao',
+                                    'datasetId':'dsLotacao',
+                                    'fields':[
+                                        {'field':'codLotacao', 'label':'ID'},
+                                        {'field':'lotacao', 'label':'Lotação', 'standard':'true'}
+                                        ]
+                                    }" 
+                            />
+                        </div>
+                    </div>
+                </div>
+          </div>
+
+        	<div class="col-md-5">
+          		<div class="form-field" data-type="zoom" data-show-properties="" data-field-name="cargo">
+              		<div class="form-input">
+                		<div class="form-group">
+                    		<label>Cargo</label>
+                        <input name="cargo" id="cargo" list="cargos" class="form-control" type="zoom" placeholder="Informar cargo" 
+                        value="" data-size="big" data-zoom="{
+                          'displayKey':'cargo',
+                          'datasetId':'dsCargos',
+                          'fields':[
+                              {'field':'cargo', 'label':'Cargo', 'standard':'true'},
+                              {'field':'lotacao', 'label':'Lotação'},
+                              {'field':'departamento', 'label':'Departamento'},
+                              {'field':'situacaoCargo', 'label':'Sit.'},
+                              {'field':'descricaoCargo', 'label':'Desc.'}
+                              ]
+                          }" >
+                      	<!-- 	<datalist id="cargos" ></datalist> -->
+                  		</div>
+              		</div>
+          		</div>
+        	</div>
+
+
+
+       </div>
+
+
+         <div class="form-field" data-type="checkbox" data-show-properties="" data-field-name="aprovacoes" id="aprovacoes">
+            <div class="form-input">
+                <div class="form-group">
+                    <label>Exibir colunas</label>
+                    <div class="check-options">
+                        <div class="checkbox-inline"  >
+                            <input name="exibeDescricaoCArgo" id="exibeDescricaoCArgo" type="checkbox" value="Descrição do cargo">Descrição do cargo
+                        </div>
+                        <div class="checkbox-inline"  >
+                            <input name="exibeDocumentos" id="exibeDocumentos" type="checkbox" value="Documentos">Documentos
+                        </div>
+                         <div class="checkbox-inline"  >
+                            <input name="exibeCargosEmAberto" id="exibeCargosEmAberto" type="checkbox" value="Cargos em aberto">Cargos em aberto
+                        </div>
+                 
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <span id="botaoGerarMatriz" style="display: block">
+         <button class="btn btn-primary" onclick="gerar();" style="float: center;" type="button" value="">
+            Gerar matriz
+          </button>
+          
+    </span>
+
+    <div>Ao clicar no botão aguarde o processamento</div>
+    
+
+
+</form>
+</div>
+
+<script>
+	
+function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
+  var sep = 0;
+  var key = '';
+  var i = j = 0;
+  var len = len2 = 0;
+  var strCheck = '0123456789';
+  var aux = aux2 = '';
+  var whichCode = (window.Event) ? e.which : e.keyCode;
+  if (whichCode == 13) return true;
+  key = String.fromCharCode(whichCode); // Valor para o código da Chave
+  if (strCheck.indexOf(key) == -1) return false; // Chave inválida
+  len = objTextBox.value.length;
+  for (i = 0; i < len; i++)
+  if ((objTextBox.value.charAt(i) != '0') && (objTextBox.value.charAt(i) != SeparadorDecimal)) break;
+  aux = '';
+  for (; i < len; i++)
+  if (strCheck.indexOf(objTextBox.value.charAt(i)) != -1) aux += objTextBox.value.charAt(i);
+  aux += key;
+  len = aux.length;
+  if (len == 0) objTextBox.value = '';
+  if (len == 1) objTextBox.value = '0' + SeparadorDecimal + '0' + aux;
+  if (len == 2) objTextBox.value = '0' + SeparadorDecimal + aux;
+  if (len > 2) {
+    aux2 = '';
+    for (j = 0, i = len - 3; i >= 0; i--) {
+      if (j == 3) {
+        aux2 += SeparadorMilesimo;
+        j = 0;
+      }
+      aux2 += aux.charAt(i);
+      j++;
+    }
+    objTextBox.value = '';
+    len2 = aux2.length;
+    for (i = len2 - 1; i >= 0; i--)
+    objTextBox.value += aux2.charAt(i);
+    objTextBox.value += SeparadorDecimal + aux.substr(len - 2, len);
+  }
+  return false;
+}
+
+
+</script>
+</body>
+</html>
