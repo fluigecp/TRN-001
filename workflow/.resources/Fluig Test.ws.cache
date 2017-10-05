@@ -41577,6 +41577,19 @@
        <int>1</int>
       </void>
       <void property="processDescription">
+       <string>Solicitar Eventos</string>
+      </void>
+      <void property="processId">
+       <string>EVL-001</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
+      <void property="companyId">
+       <int>1</int>
+      </void>
+      <void property="processDescription">
        <string>Executar Pesquisa SGQ</string>
       </void>
       <void property="processId">
@@ -41915,7 +41928,7 @@
        <int>1</int>
       </void>
       <void property="processDescription">
-       <string>Registrar consulta Ortopedia</string>
+       <string>Registrar Consulta Ortopedia</string>
       </void>
       <void property="processId">
        <string>MED-003</string>
@@ -42240,19 +42253,6 @@
        <int>1</int>
       </void>
       <void property="processDescription">
-       <string>Requisitar Treinamento</string>
-      </void>
-      <void property="processId">
-       <string>REQ-TRN001</string>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
-      <void property="companyId">
-       <int>1</int>
-      </void>
-      <void property="processDescription">
        <string>Resultado de Competição</string>
       </void>
       <void property="processId">
@@ -42270,19 +42270,6 @@
       </void>
       <void property="processId">
        <string>RHU-001</string>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
-      <void property="companyId">
-       <int>1</int>
-      </void>
-      <void property="processDescription">
-       <string>Solicitar Eventos</string>
-      </void>
-      <void property="processId">
-       <string>SE-001-SolicitarEventos</string>
       </void>
      </object>
     </void>
@@ -42322,6 +42309,19 @@
       </void>
       <void property="processId">
        <string>SGQ-002</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
+      <void property="companyId">
+       <int>1</int>
+      </void>
+      <void property="processDescription">
+       <string>Transferir Tarefas do Plano de Ação</string>
+      </void>
+      <void property="processId">
+       <string>SGQ-003</string>
       </void>
      </object>
     </void>
@@ -42530,6 +42530,32 @@
       </void>
       <void property="processId">
        <string>TRN-002</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
+      <void property="companyId">
+       <int>1</int>
+      </void>
+      <void property="processDescription">
+       <string>Requisitar Treinamento</string>
+      </void>
+      <void property="processId">
+       <string>TRN-004</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.totvs.tds.ecm.foundation.ws.ProcessDefinitionDto">
+      <void property="companyId">
+       <int>1</int>
+      </void>
+      <void property="processDescription">
+       <string>Registrar Treinamento</string>
+      </void>
+      <void property="processId">
+       <string>TRN-005</string>
       </void>
      </object>
     </void>
