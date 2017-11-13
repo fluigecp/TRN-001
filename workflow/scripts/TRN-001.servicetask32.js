@@ -22,7 +22,7 @@ function servicetask32(attempt, message) {
   
 		var processId = "TRN-005";
 
-		var choosedState = 30; // atividade condicional FX-41
+		var choosedState = 25; // atividade condicional FX-41
 		
 		var comments = "Solicitação aberta por: Nº " + numSolicPai;  
 		log.warn("%%%%%% comments : " + comments);

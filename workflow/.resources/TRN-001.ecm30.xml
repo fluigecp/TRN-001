@@ -27,7 +27,7 @@
     <processDefinitionVersionPK>
       <companyId>1</companyId>
       <processId>Controlar Matriz de Treinamento</processId>
-      <version>62</version>
+      <version>63</version>
     </processDefinitionVersionPK>
     <versionDescription></versionDescription>
     <formId>21804</formId>
@@ -398,7 +398,7 @@
         <companyId>1</companyId>
         <processId>TRN-001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>62</version>
+        <version>63</version>
         <sequence>21</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;alterarRelacaoDocumentos&apos;) == &quot;Não&quot; || hAPI.getCardValue(&apos;checkSolicitanteSGQ&apos;) == &quot;true&quot; || hAPI.getCardValue(&apos;situacaoCargo&apos;) == &quot;Inativo&quot;</condition>
@@ -409,7 +409,7 @@
         <companyId>1</companyId>
         <processId>TRN-001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>62</version>
+        <version>63</version>
         <sequence>21</sequence>
       </conditionProcessStatePK>
       <condition>(hAPI.getCardValue(&apos;cargoNovo&apos;) == &quot;Sim&quot; &amp;&amp; hAPI.getCardValue(&apos;checkSolicitanteSGQ&apos;) == &quot;false&quot;) || hAPI.getCardValue(&apos;alterarRelacaoDocumentos&apos;) == &quot;Sim&quot;</condition>
@@ -420,7 +420,7 @@
         <companyId>1</companyId>
         <processId>TRN-001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>62</version>
+        <version>63</version>
         <sequence>38</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;docNaoAplicavel&apos;) == &quot;Não aplicável&quot;</condition>
@@ -431,7 +431,7 @@
         <companyId>1</companyId>
         <processId>TRN-001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>62</version>
+        <version>63</version>
         <sequence>38</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;docNaoAplicavel&apos;) != &quot;Não aplicável&quot;</condition>
@@ -692,7 +692,7 @@ function getDataCorrente(){&#xd;
   
 		var processId = &quot;TRN-005&quot;;
 
-		var choosedState = 30; // atividade condicional FX-41
+		var choosedState = 25; // atividade condicional FX-41
 		
 		var comments = &quot;Solicitação aberta por: Nº &quot; + numSolicPai;  
 		log.warn(&quot;%%%%%% comments : &quot; + comments);
@@ -919,7 +919,7 @@ function getAnoMesDia() {&#xd;
         <companyId>1</companyId>
         <processId>TRN-001</processId>
         <propertyId>loginUserWS</propertyId>
-        <version>62</version>
+        <version>63</version>
       </advancedProcessPropertiesPK>
       <propertieValue>servico</propertieValue>
     </AdvancedProcessProperties>
@@ -928,7 +928,7 @@ function getAnoMesDia() {&#xd;
         <companyId>1</companyId>
         <processId>TRN-001</processId>
         <propertyId>matUserWS</propertyId>
-        <version>62</version>
+        <version>63</version>
       </advancedProcessPropertiesPK>
       <propertieValue>0000</propertieValue>
     </AdvancedProcessProperties>
@@ -937,7 +937,7 @@ function getAnoMesDia() {&#xd;
         <companyId>1</companyId>
         <processId>TRN-001</processId>
         <propertyId>passwdUserWS</propertyId>
-        <version>62</version>
+        <version>63</version>
       </advancedProcessPropertiesPK>
       <propertieValue>fcea920f7412b5da7be0cf42b8c93759</propertieValue>
     </AdvancedProcessProperties>
@@ -1015,7 +1015,7 @@ function getAnoMesDia() {&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>TRN-001</processId>
-        <version>62</version>
+        <version>63</version>
         <linkSequence>23</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -1026,7 +1026,7 @@ function getAnoMesDia() {&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>TRN-001</processId>
-        <version>62</version>
+        <version>63</version>
         <linkSequence>33</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -1037,7 +1037,7 @@ function getAnoMesDia() {&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>TRN-001</processId>
-        <version>62</version>
+        <version>63</version>
         <linkSequence>35</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -1048,7 +1048,7 @@ function getAnoMesDia() {&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>TRN-001</processId>
-        <version>62</version>
+        <version>63</version>
         <linkSequence>40</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -1059,7 +1059,7 @@ function getAnoMesDia() {&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>TRN-001</processId>
-        <version>62</version>
+        <version>63</version>
         <linkSequence>41</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -1073,7 +1073,7 @@ function getAnoMesDia() {&#xd;
       <extendedPropertyFieldPK>
         <companyId>1</companyId>
         <processId>TRN-001</processId>
-        <version>62</version>
+        <version>63</version>
         <stateSequence>0</stateSequence>
         <propertyName>loginUserWS</propertyName>
       </extendedPropertyFieldPK>
@@ -1086,7 +1086,7 @@ function getAnoMesDia() {&#xd;
       <extendedPropertyFieldPK>
         <companyId>1</companyId>
         <processId>TRN-001</processId>
-        <version>62</version>
+        <version>63</version>
         <stateSequence>0</stateSequence>
         <propertyName>matUserWS</propertyName>
       </extendedPropertyFieldPK>
@@ -1099,7 +1099,7 @@ function getAnoMesDia() {&#xd;
       <extendedPropertyFieldPK>
         <companyId>1</companyId>
         <processId>TRN-001</processId>
-        <version>62</version>
+        <version>63</version>
         <stateSequence>0</stateSequence>
         <propertyName>passwdUserWS</propertyName>
       </extendedPropertyFieldPK>
