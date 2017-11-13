@@ -8,7 +8,7 @@ window.onload = function(){
 
 	verificaSituacao(FLUIGC.switcher.getState('#situacaoCargoSwitcher'));
 
-	$("#lotacao").on('fluig.filter.item.added', function(data) {
+/* 	$("#lotacao").on('fluig.autocomplete.selected', function(data) {
 
 		var m2 = data.item.codLotacao;
 		var nomeLotacao = data.item.lotacao;
@@ -25,7 +25,7 @@ window.onload = function(){
 		}, 500);
 
 
-	});
+	}); */
 
 	$(document).ready(function(){
     $("button").click(function(){
@@ -304,7 +304,7 @@ function addDoc() {
 
 	var row = wdkAddChild('documentos');
 
-	$("#documento___" + row).on('fluig.filter.item.added', function(data) {
+	/*$("#documento___" + row).on('fluig.autocomplete.beforeItemAdd', function(data) {
 
 		var cod = data.item.codigo;
 		if(jaExisteDoc(cod)){
@@ -320,11 +320,10 @@ function addDoc() {
 		}
 
 		
-	});
+	});*/
 
 	return row;
 }
-
 
 function jaExisteDoc(cod){
 
@@ -493,6 +492,41 @@ function getResponsavelSGQByCodDepartmento( codDepartamento ){
 		return "";
 
 	}
-
-
 }
+
+
+// método do campo zoom de departamentos
+function setSelectedZoomItem(selectedItem) {
+	if (selectedItem.inputName == 'lotacao') {
+		var m2 = selectedItem.codLotacao;
+		var nomeLotacao = selectedItem.lotacao;
+
+		document.getElementsByName('codLotacao')[0].value = m2;
+		document.getElementsByName('nomeLotacao')[0].value = nomeLotacao;
+
+		var myLoading1 = FLUIGC.loading('#loading');
+		myLoading1.show();
+		setTimeout(function() {
+			verificaResponsavel(m2);
+			carregaOpcoesCargo();
+			myLoading1.hide();
+		}, 500);
+	}
+
+	if (selectedItem.inputName.indexOf("documento___") !== -1) {
+		var cod = selectedItem.codigo;
+		if(jaExisteDoc(cod)){
+			$(".documentosLixeira").each(function(index){
+				var valor = $(this).closest('tr').find("#" + selectedItem.inputName).val();
+		    	if( valor != undefined && valor != null && valor != ""){
+					//fnWdkRemoveChild(this);
+					$(this).click();
+		    	}       
+		    });
+		} else{
+			$("#" + selectedItem.inputName).closest('.tableBodyRow').find("[name*=codDocumento___]").val(selectedItem.codigo);
+			$("#" + selectedItem.inputName).closest('.tableBodyRow').find("[name*=documentoTxt___]").val(selectedItem.documento);
+		}
+	}
+}
+
